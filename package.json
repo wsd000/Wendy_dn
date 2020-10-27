@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev docs --temp .temp",
-    "build": "vuepress build docs"
+    "build": "vuepress build docs",
+    "deploy": "bash deploy.sh",
+    "publish": "vuepress build docs && bash deploy.sh"
   },
   "keywords": [],
   "author": "wsd",
