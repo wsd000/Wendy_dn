@@ -1,0 +1,13 @@
+{
+  "name": "Wendy_dn",
+  "version": "1.0.0",
+  "description": "Wendy_dn",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs --temp .temp",
+    "build": "vuepress build docs"
+  },
+  "keywords": [],
+  "author": "wsd",
+  "license": "ISC"
+}
