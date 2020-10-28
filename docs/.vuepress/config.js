@@ -4,8 +4,8 @@ module.exports = {
     title: 'wendy日常录',  // 设置网站标题
     keywords: '前端开发',
     description : '日常笔记',
-    // repo: 'https://github.com/zeroonbush/blog.git',  //仓库地址
-    // base: '/blog/',  // 配合部署项目
+    repo: 'https://github.com/wsd000/Wendy_dn.git',  //仓库地址
+    base: '/Wendy_dn/',  // 配合部署项目
     head: [
         ['link', { rel: 'shortcut icon', type: "image/x-icon", href: '/favicon.png' }]
     ],

@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vuepress dev docs --temp .temp",
     "build": "vuepress build docs",
-    "deploy": "bash deploy.sh",
-    "publish": "vuepress build docs && bash deploy.sh"
+    "deploy": "bash deploy.sh"
   },
   "keywords": [],
   "author": "wsd",
