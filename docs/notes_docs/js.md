@@ -1,4 +1,19 @@
-# Getting Started
+# 对象
+## 创建对象(Create)
+``` md
+1.对象字面量
+  let a={name:'xxx'}
+2.构造函数
+  function Person(name){
+    this.name=name
+  }
+  let b=new Person('xxx')
+3.Object.create(proto, [propertiesObject])
+  Object.create()方法创建的对象时，属性是在原型下面的
+  let c=Object.create({name:'xxx'})
+```
+
+
 
 ::: warning COMPATIBILITY NOTE
 VuePress requires Node.js >= 8.

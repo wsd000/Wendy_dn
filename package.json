@@ -10,5 +10,6 @@
   },
   "keywords": [],
   "author": "wsd",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {}
 }

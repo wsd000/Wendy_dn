@@ -2,7 +2,7 @@
 home: true 
 heroImage: /img/webp.png
 actionText: Recording →
-actionLink: /zh/guide/
+actionLink: /notes_docs/css
 features:
 - title: 疑难杂症
   details: 症结描述：填坑引领的血泪记录、不常用但好用的编写技巧、易混淆难理解的经典金题。（绝对经典！！！）
