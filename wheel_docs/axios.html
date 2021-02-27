@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>axios(异步请求封装) | wendy日常录</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" type="image/x-icon" href="/Wendy_dn/favicon.png">
+    <meta name="description" content="日常笔记">
+    
+    <link rel="preload" href="/Wendy_dn/assets/css/0.styles.4c4117f9.css" as="style"><link rel="preload" href="/Wendy_dn/assets/js/app.a3c0083f.js" as="script"><link rel="preload" href="/Wendy_dn/assets/js/2.ed2d8ee7.js" as="script"><link rel="preload" href="/Wendy_dn/assets/js/11.f39826b9.js" as="script"><link rel="prefetch" href="/Wendy_dn/assets/js/10.9b98147a.js"><link rel="prefetch" href="/Wendy_dn/assets/js/12.95385a13.js"><link rel="prefetch" href="/Wendy_dn/assets/js/3.4f7c01a5.js"><link rel="prefetch" href="/Wendy_dn/assets/js/4.30bc72e3.js"><link rel="prefetch" href="/Wendy_dn/assets/js/5.4f83ae1d.js"><link rel="prefetch" href="/Wendy_dn/assets/js/6.b846edbc.js"><link rel="prefetch" href="/Wendy_dn/assets/js/7.9292dcf7.js"><link rel="prefetch" href="/Wendy_dn/assets/js/8.734d8303.js"><link rel="prefetch" href="/Wendy_dn/assets/js/9.6f081764.js">
+    <link rel="stylesheet" href="/Wendy_dn/assets/css/0.styles.4c4117f9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Wendy_dn/" class="home-link router-link-active"><img src="/Wendy_dn/img/logo.png" alt="wendy日常录" class="logo"> <span class="site-name can-hide">wendy日常录</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/Wendy_dn/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/Wendy_dn/notes_docs/js.html" class="nav-link">
+  Notes
+</a></div><div class="nav-item"><a href="/Wendy_dn/framework_docs/" class="nav-link">
+  Framework
+</a></div><div class="nav-item"><a href="/Wendy_dn/wheel_docs/axios.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Wheel
+</a></div><div class="nav-item"><a href="/Wendy_dn/tool_docs/" class="nav-link">
+  Tool
+</a></div><div class="nav-item"><a href="/Wendy_dn/KL_docs/" class="nav-link">
+  KL_Timer
+</a></div><div class="nav-item"><a href="https://github.com/zeroonbush/blog.git" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/Wendy_dn/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/Wendy_dn/notes_docs/js.html" class="nav-link">
+  Notes
+</a></div><div class="nav-item"><a href="/Wendy_dn/framework_docs/" class="nav-link">
+  Framework
+</a></div><div class="nav-item"><a href="/Wendy_dn/wheel_docs/axios.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Wheel
+</a></div><div class="nav-item"><a href="/Wendy_dn/tool_docs/" class="nav-link">
+  Tool
+</a></div><div class="nav-item"><a href="/Wendy_dn/KL_docs/" class="nav-link">
+  KL_Timer
+</a></div><div class="nav-item"><a href="https://github.com/zeroonbush/blog.git" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>常用组件</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/Wendy_dn/wheel_docs/axios.html" aria-current="page" class="active sidebar-link">axios(异步请求封装)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/axios.html#功能解析-analysis" class="sidebar-link">功能解析(Analysis)</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/axios.html#部分功能函数封装-capsulation" class="sidebar-link">部分功能函数封装(capsulation)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/axios.html#检查请求前缀" class="sidebar-link">检查请求前缀</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/axios.html#获取服务器维护状态" class="sidebar-link">获取服务器维护状态</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/axios.html#刷新token" class="sidebar-link">刷新token</a></li></ul></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/axios.html#完整代码" class="sidebar-link">完整代码</a></li></ul></li><li><a href="/Wendy_dn/wheel_docs/scroll.html" class="sidebar-link">scroll(移动端滚动组件封装)</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="axios-异步请求封装"><a href="#axios-异步请求封装" class="header-anchor">#</a> axios(异步请求封装)</h1> <h2 id="功能解析-analysis"><a href="#功能解析-analysis" class="header-anchor">#</a> 功能解析(Analysis)</h2> <ul><li>针对服务器的运行状况做第一次拦截操作，所有对服务器的请求先访问 <code>/GetMaintenanceState</code> 判断服务器的运行状态</li></ul> <div class="language-md extra-class"><pre class="language-md"><code><span class="token list punctuation">-</span> 正在维护：跳转到维护页面并显示维护信息
+<span class="token list punctuation">-</span> 正在运行：发起请求
+</code></pre></div><ul><li>针对需要token验证的接口做第二次拦截操作，一般在用户登陆成功后会返回标识Token</li></ul> <div class="language-md extra-class"><pre class="language-md"><code>用户登录请求接口<span class="token code keyword">`/Login`</span>，并将<span class="token code keyword">`access_token`</span>和<span class="token code keyword">`refresh_token`</span>保存在localStorage。
+每次请求时携带在请求头Authorization中。
+</code></pre></div><ul><li>token过期重新刷新机制</li></ul> <div class="language-md extra-class"><pre class="language-md"><code><span class="token list punctuation">-</span> access_token 过期，用 refresh_token 重新请求刷新token
+<span class="token list punctuation">-</span> 请求失败 refresh_token 过期则跳转到登录页面
+<span class="token list punctuation">-</span> 请求成功存储新的token再次发起请求
+</code></pre></div><div class="custom-block warning"><p class="custom-block-title">WARNING</p> <ul><li>为了减轻服务器的压力，发起请求的时候先获取服务器状态储存在 localStorage，10分钟内如果再有请求，不再获取状态。</li> <li>需要封装localStorageGet方法，超过10分钟返回false</li> <li>需要封装localStorageSet方法，储存maintenance字段同时，储存时间戳</li></ul></div> <h2 id="部分功能函数封装-capsulation"><a href="#部分功能函数封装-capsulation" class="header-anchor">#</a> 部分功能函数封装(capsulation)</h2> <h3 id="检查请求前缀"><a href="#检查请求前缀" class="header-anchor">#</a> 检查请求前缀</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token parameter">url</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>url<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>baseUrl<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> url<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  url <span class="token operator">=</span> url<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  url <span class="token operator">=</span> baseUrl <span class="token operator">+</span> <span class="token string">'/'</span> <span class="token operator">+</span> url<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> url<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="获取服务器维护状态"><a href="#获取服务器维护状态" class="header-anchor">#</a> 获取服务器维护状态</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">checkMaintenance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> status <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token comment">// 获取完整的url</span>
+  <span class="token keyword">let</span> url <span class="token operator">=</span> <span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token string">'/GetMaintenanceState'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">axios</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    url<span class="token punctuation">,</span>
+    method<span class="token operator">:</span> <span class="token string">'get'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>IsSuccess<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      status <span class="token operator">=</span> <span class="token punctuation">{</span>
+        IsRun<span class="token operator">:</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>Value<span class="token punctuation">.</span>IsRun<span class="token punctuation">,</span> <span class="token comment">// 服务器是否运行</span>
+        errMsg<span class="token operator">:</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>Value<span class="token punctuation">.</span>MaintenanceMsg <span class="token comment">// 维护时的信息</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token comment">// 存储服务器状态</span>
+      localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'maintenance'</span><span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token comment">// 传递获取的结果</span>
+      <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 返回错误信息</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>response<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="刷新token"><a href="#刷新token" class="header-anchor">#</a> 刷新token</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">getRefreshToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> url <span class="token operator">=</span> <span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token string">'/Token'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 登录时已经获取token储存在localStorage中</span>
+  <span class="token keyword">let</span> token <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'token'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">axios</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    url<span class="token punctuation">,</span>
+    method<span class="token operator">:</span> <span class="token string">'post'</span><span class="token punctuation">,</span>
+    data<span class="token operator">:</span> <span class="token string">'grant_type=refresh_token&amp;refresh_token='</span> <span class="token operator">+</span> token<span class="token punctuation">.</span>refresh_token<span class="token punctuation">,</span>
+    headers<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">'Content-Type'</span><span class="token operator">:</span> <span class="token string">'application/x-www-form-urlencoded; charset=UTF-8'</span><span class="token punctuation">,</span>
+      <span class="token comment">// 开发者密钥</span>
+      Authorization<span class="token operator">:</span> <span class="token string">'Basic xxxxxxxxxxx'</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>IsSuccess<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> token_temp <span class="token operator">=</span> <span class="token punctuation">{</span>
+        access_token<span class="token operator">:</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>access_token<span class="token punctuation">,</span>
+        refresh_token<span class="token operator">:</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>refresh_token
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token comment">// 存储新的token信息</span>
+      localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'token'</span><span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>token_temp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 将access_token储存在session中</span>
+      sessionStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'access_token'</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>access_token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="完整代码"><a href="#完整代码" class="header-anchor">#</a> 完整代码</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> Router <span class="token keyword">from</span> <span class="token string">'vue-router'</span>
+
+<span class="token comment">// 请求前缀</span>
+<span class="token keyword">let</span> baseUrl<span class="token operator">=</span><span class="token string">'https://app.bdia.com.cn/service/'</span><span class="token punctuation">;</span>
+<span class="token comment">/* 是否有请求正在刷新token */</span>
+window<span class="token punctuation">.</span>isRefreshing <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token comment">/* 被挂起的请求List */</span>
+<span class="token keyword">let</span> refreshSubscribers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token comment">/* 将请求都push到请求List中 */</span>
+<span class="token keyword">function</span> <span class="token function">subscribeTokenRefresh</span><span class="token punctuation">(</span><span class="token parameter">cb</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  refreshSubscribers<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/* 重新请求(挂起的请求List中的请求得到新的token之后会自执行,用新的token去请求数据) */</span>
+<span class="token keyword">function</span> <span class="token function">onRrefreshed</span> <span class="token punctuation">(</span><span class="token parameter">token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  refreshSubscribers<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">cb</span> <span class="token operator">=&gt;</span> <span class="token function">cb</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 设置拦截器</span>
+<span class="token keyword">const</span> instance <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// request 拦截器：</span>
+instance<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>request<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>
+  <span class="token parameter">config</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 获取储存中本地的服务器维护状态</span>
+    <span class="token keyword">let</span> maintenance <span class="token operator">=</span> localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'maintenance'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 如果本地不存在maintenance（初次访问）或 超过10分钟，重新获取(服务器状态)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>maintenance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">checkMaintenance</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 服务器运行中</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span>IsRun<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 获取session中的access_token</span>
+            <span class="token keyword">let</span> access_token <span class="token operator">=</span> sessionStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'access_token'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 如果不存在字段，则跳转到登录页面</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>access_token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token comment">// 携带当前页面路由，以在登录页面完成登录后返回当前页面</span>
+              Router<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                path<span class="token operator">:</span> <span class="token string">'/login'</span><span class="token punctuation">,</span>
+                query<span class="token operator">:</span> <span class="token punctuation">{</span> redirect<span class="token operator">:</span> Router<span class="token punctuation">.</span>currentRoute<span class="token punctuation">.</span>fullPath <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token comment">// 终止请求</span>
+              <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              <span class="token comment">// 配置header_token</span>
+              config<span class="token punctuation">.</span>headers<span class="token punctuation">.</span>Authorization <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">bearer </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>access_token<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            config<span class="token punctuation">.</span>headers<span class="token punctuation">[</span><span class="token string">'Content-Type'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'application/json;charset=UTF-8'</span><span class="token punctuation">;</span>
+            <span class="token comment">// 这一步就是允许发送请求</span>
+            <span class="token keyword">return</span> config<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 如果服务器正在维护，跳转到维护页面，显示维护信息</span>
+            Router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              path<span class="token operator">:</span> <span class="token string">'/maintenance'</span><span class="token punctuation">,</span>
+              query<span class="token operator">:</span> <span class="token punctuation">{</span> redirect<span class="token operator">:</span> res<span class="token punctuation">.</span>errMsg <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 终止请求</span>
+            <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 获取服务器运行状态失败,返回错误信息</span>
+          <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 本地存在 maintenance</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>maintenance<span class="token punctuation">.</span>IsRun<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> access_token <span class="token operator">=</span> sessionStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'access_token'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>access_token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          Router<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            path<span class="token operator">:</span> <span class="token string">'/login'</span><span class="token punctuation">,</span>
+            query<span class="token operator">:</span> <span class="token punctuation">{</span> redirect<span class="token operator">:</span> router<span class="token punctuation">.</span>currentRoute<span class="token punctuation">.</span>fullPath <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment">// 终止这个请求</span>
+          <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          config<span class="token punctuation">.</span>headers<span class="token punctuation">.</span>Authorization <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">bearer </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>access_token<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        config<span class="token punctuation">.</span>headers<span class="token punctuation">[</span><span class="token string">'Content-Type'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'application/json;charset=UTF-8'</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> config<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 跳转维护页面</span>
+        Router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          path<span class="token operator">:</span> <span class="token string">'/maintenance'</span><span class="token punctuation">,</span>
+          query<span class="token operator">:</span> <span class="token punctuation">{</span> redirect<span class="token operator">:</span> maintenance<span class="token punctuation">.</span>errMsg <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 终止这个请求</span>
+        <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// err为错误对象，但是在我的项目中，除非网络问题才会出现</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// response 拦截器：</span>
+instance<span class="token punctuation">.</span>interceptors<span class="token punctuation">.</span>response<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>
+    <span class="token parameter">response</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 使响应结果省略data字段</span>
+        <span class="token keyword">return</span> response<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token comment">// access_token不存在或过期</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">.</span>response<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">503</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>window<span class="token punctuation">.</span>isRefreshing<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token comment">/*将刷新标志置为true*/</span>
+          window<span class="token punctuation">.</span>isRefreshing <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+          <span class="token comment">// 刷新token</span>
+          <span class="token function">getRefreshToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token comment">/*将刷新标志置为false*/</span>
+              window<span class="token punctuation">.</span>isRefreshing <span class="token operator">=</span> <span class="token boolean">false</span>
+              <span class="token comment">// 重新设置token并执行挂起的请求</span>
+              <span class="token keyword">let</span> access_token <span class="token operator">=</span> sessionStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'access_token'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token comment">/*执行数组里的函数,重新发起被挂起的请求*/</span>
+              <span class="token function">onRrefreshed</span><span class="token punctuation">(</span>access_token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token comment">/*执行onRefreshed函数后清空数组中保存的请求*/</span>
+              refreshSubscribers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token comment">// refreshtoken 获取失败就只能到登录页面</span>
+              Router<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                path<span class="token operator">:</span> <span class="token string">'/login'</span><span class="token punctuation">,</span>
+                query<span class="token operator">:</span> <span class="token punctuation">{</span> redirect<span class="token operator">:</span> Router<span class="token punctuation">.</span>currentRoute<span class="token punctuation">.</span>fullPath <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 将请求挂起</span>
+        <span class="token keyword">let</span> retry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token comment">/*把请求(token)=&gt;{....}都push到一个数组中*/</span>
+          <span class="token function">subscribeTokenRefresh</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">token</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            config<span class="token punctuation">.</span>headers<span class="token punctuation">.</span>Authorization <span class="token operator">=</span> <span class="token string">'Bearer '</span> <span class="token operator">+</span> token
+            <span class="token comment">/*将请求挂起*/</span>
+            <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token function">instance</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>config<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> retry
+      <span class="token punctuation">}</span>
+      <span class="token comment">// refresh_token不存在或过期</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">.</span>response<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">501</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Router<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          path<span class="token operator">:</span> <span class="token string">'/login'</span><span class="token punctuation">,</span>
+          query<span class="token operator">:</span> <span class="token punctuation">{</span> redirect<span class="token operator">:</span> Router<span class="token punctuation">.</span>currentRoute<span class="token punctuation">.</span>fullPath <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 其他的错误码，直接返回错误信息</span>
+      <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">get</span> <span class="token punctuation">(</span>url<span class="token punctuation">,</span> params <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      axiosApi<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        params
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">error</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">post</span> <span class="token punctuation">(</span><span class="token parameter">url<span class="token punctuation">,</span> params <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token function">axiosApi</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        url<span class="token operator">:</span> url<span class="token punctuation">,</span>
+        method<span class="token operator">:</span> <span class="token string">'POST'</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> params<span class="token punctuation">,</span>
+        transformRequest<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">let</span> ret <span class="token operator">=</span> <span class="token string">''</span>
+          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token keyword">in</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ret <span class="token operator">+=</span> <span class="token function">encodeURIComponent</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'='</span> <span class="token operator">+</span> <span class="token function">encodeURIComponent</span><span class="token punctuation">(</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'&amp;'</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">return</span> ret
+        <span class="token punctuation">}</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">put</span> <span class="token punctuation">(</span><span class="token parameter">url<span class="token punctuation">,</span> params <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      axiosApi<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token keyword">delete</span> <span class="token punctuation">(</span>url<span class="token punctuation">,</span> params <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      axiosApi<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        data<span class="token operator">:</span> params
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">all</span> <span class="token punctuation">(</span><span class="token parameter">queryAll</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>queryAll<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/Wendy_dn/wheel_docs/scroll.html">
+        scroll(移动端滚动组件封装)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/Wendy_dn/assets/js/app.a3c0083f.js" defer></script><script src="/Wendy_dn/assets/js/2.ed2d8ee7.js" defer></script><script src="/Wendy_dn/assets/js/11.f39826b9.js" defer></script>
+  </body>
+</html>

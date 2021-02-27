@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>scroll(移动端滚动组件封装) | wendy日常录</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="shortcut icon" type="image/x-icon" href="/Wendy_dn/favicon.png">
+    <meta name="description" content="日常笔记">
+    
+    <link rel="preload" href="/Wendy_dn/assets/css/0.styles.4c4117f9.css" as="style"><link rel="preload" href="/Wendy_dn/assets/js/app.a3c0083f.js" as="script"><link rel="preload" href="/Wendy_dn/assets/js/2.ed2d8ee7.js" as="script"><link rel="preload" href="/Wendy_dn/assets/js/12.95385a13.js" as="script"><link rel="prefetch" href="/Wendy_dn/assets/js/10.9b98147a.js"><link rel="prefetch" href="/Wendy_dn/assets/js/11.f39826b9.js"><link rel="prefetch" href="/Wendy_dn/assets/js/3.4f7c01a5.js"><link rel="prefetch" href="/Wendy_dn/assets/js/4.30bc72e3.js"><link rel="prefetch" href="/Wendy_dn/assets/js/5.4f83ae1d.js"><link rel="prefetch" href="/Wendy_dn/assets/js/6.b846edbc.js"><link rel="prefetch" href="/Wendy_dn/assets/js/7.9292dcf7.js"><link rel="prefetch" href="/Wendy_dn/assets/js/8.734d8303.js"><link rel="prefetch" href="/Wendy_dn/assets/js/9.6f081764.js">
+    <link rel="stylesheet" href="/Wendy_dn/assets/css/0.styles.4c4117f9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Wendy_dn/" class="home-link router-link-active"><img src="/Wendy_dn/img/logo.png" alt="wendy日常录" class="logo"> <span class="site-name can-hide">wendy日常录</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/Wendy_dn/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/Wendy_dn/notes_docs/js.html" class="nav-link">
+  Notes
+</a></div><div class="nav-item"><a href="/Wendy_dn/framework_docs/" class="nav-link">
+  Framework
+</a></div><div class="nav-item"><a href="/Wendy_dn/wheel_docs/axios.html" class="nav-link">
+  Wheel
+</a></div><div class="nav-item"><a href="/Wendy_dn/tool_docs/" class="nav-link">
+  Tool
+</a></div><div class="nav-item"><a href="/Wendy_dn/KL_docs/" class="nav-link">
+  KL_Timer
+</a></div><div class="nav-item"><a href="https://github.com/zeroonbush/blog.git" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/Wendy_dn/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/Wendy_dn/notes_docs/js.html" class="nav-link">
+  Notes
+</a></div><div class="nav-item"><a href="/Wendy_dn/framework_docs/" class="nav-link">
+  Framework
+</a></div><div class="nav-item"><a href="/Wendy_dn/wheel_docs/axios.html" class="nav-link">
+  Wheel
+</a></div><div class="nav-item"><a href="/Wendy_dn/tool_docs/" class="nav-link">
+  Tool
+</a></div><div class="nav-item"><a href="/Wendy_dn/KL_docs/" class="nav-link">
+  KL_Timer
+</a></div><div class="nav-item"><a href="https://github.com/zeroonbush/blog.git" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>常用组件</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/Wendy_dn/wheel_docs/axios.html" class="sidebar-link">axios(异步请求封装)</a></li><li><a href="/Wendy_dn/wheel_docs/scroll.html" aria-current="page" class="active sidebar-link">scroll(移动端滚动组件封装)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#组件说明-analysis" class="sidebar-link">组件说明(Analysis)</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#完整代码-complete-code" class="sidebar-link">完整代码(complete code)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#template" class="sidebar-link">Template</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#css" class="sidebar-link">Css</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#script" class="sidebar-link">Script</a></li></ul></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#引用示例-quote-example" class="sidebar-link">引用示例(quote example)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#简单滚动" class="sidebar-link">简单滚动</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#上拉加载-下拉树新" class="sidebar-link">上拉加载-下拉树新</a></li><li class="sidebar-sub-header"><a href="/Wendy_dn/wheel_docs/scroll.html#轮播图-swiper" class="sidebar-link">轮播图(swiper)</a></li></ul></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="scroll-移动端滚动组件封装"><a href="#scroll-移动端滚动组件封装" class="header-anchor">#</a> scroll(移动端滚动组件封装)</h1> <h2 id="组件说明-analysis"><a href="#组件说明-analysis" class="header-anchor">#</a> 组件说明(Analysis)</h2> <p>基于better-scroll的近一步封装，适用于vue框架。方便集成轮播图、分页加载、下拉刷新、滚动锚点展示（类似于电话簿）等功能模块。解决移动端对于滚动功能的兼容问题</p> <h2 id="完整代码-complete-code"><a href="#完整代码-complete-code" class="header-anchor">#</a> 完整代码(complete code)</h2> <h3 id="template"><a href="#template" class="header-anchor">#</a> Template</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>父容器<span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div ref<span class="token operator">=</span><span class="token string">&quot;wrapper&quot;</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;scroll&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 上拉加载<span class="token operator">-</span>下拉刷新 <span class="token operator">--</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;scroll_contant&quot;</span> v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">&quot;pullDownRefresh||pullUpLoad&quot;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;pulldown-wrapper&quot;</span> v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">&quot;pullDownRefresh&quot;</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>div v<span class="token operator">-</span>show<span class="token operator">=</span><span class="token string">&quot;beforePullDown&quot;</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>span<span class="token operator">&gt;</span>Pull Down and refresh<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>div v<span class="token operator">-</span>show<span class="token operator">=</span><span class="token string">&quot;!beforePullDown&quot;</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>div v<span class="token operator">-</span>show<span class="token operator">=</span><span class="token string">&quot;isPullingDown&quot;</span><span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>img width<span class="token operator">=</span><span class="token string">&quot;24&quot;</span> height<span class="token operator">=</span><span class="token string">&quot;24&quot;</span> src<span class="token operator">=</span><span class="token string">&quot;./loading.gif&quot;</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>div v<span class="token operator">-</span>show<span class="token operator">=</span><span class="token string">&quot;!isPullingDown&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span>span<span class="token operator">&gt;</span>Refresh success<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>子容器插槽<span class="token operator">--</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>slot<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>slot<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;pullup-wrapper&quot;</span> v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">&quot;pullUpLoad&amp;&amp;hasMore&quot;</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>img width<span class="token operator">=</span><span class="token string">&quot;24&quot;</span> height<span class="token operator">=</span><span class="token string">&quot;24&quot;</span> src<span class="token operator">=</span><span class="token string">&quot;./loading.gif&quot;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>简单滚动子容器插槽<span class="token operator">--</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>slot v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">&quot;!pullDownRefresh&amp;&amp;!pullUpLoad&amp;&amp;!slider&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>slot<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 轮播图 <span class="token operator">--</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;slider-group&quot;</span> ref<span class="token operator">=</span><span class="token string">&quot;sliderGroup&quot;</span> v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">&quot;slider&quot;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>子容器插槽<span class="token operator">--</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>slot<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>slot<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;dots&quot;</span> v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">&quot;slider&quot;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;dot&quot;</span> <span class="token operator">:</span>key<span class="token operator">=</span><span class="token string">&quot;index&quot;</span> <span class="token operator">:</span><span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;{active: currentPageIndex === index }&quot;</span> v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">&quot;(item, index) in dots&quot;</span> <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>
+</code></pre></div><h3 id="css"><a href="#css" class="header-anchor">#</a> Css</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>style scoped lang<span class="token operator">=</span><span class="token string">&quot;scss&quot;</span><span class="token operator">&gt;</span>
+  <span class="token punctuation">.</span>scroll<span class="token punctuation">{</span>
+    position<span class="token operator">:</span> relative<span class="token punctuation">;</span>
+    height<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+    overflow<span class="token operator">:</span> hidden<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span>pulldown<span class="token operator">-</span>wrapper<span class="token punctuation">{</span>
+    position<span class="token operator">:</span> absolute<span class="token punctuation">;</span>
+    width<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+    padding<span class="token operator">:</span> <span class="token number">2</span><span class="token operator">%</span><span class="token punctuation">;</span>
+    box<span class="token operator">-</span>sizing<span class="token operator">:</span> border<span class="token operator">-</span>box<span class="token punctuation">;</span>
+    transform<span class="token operator">:</span> <span class="token function">translateY</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span> <span class="token function">translateZ</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    text<span class="token operator">-</span>align<span class="token operator">:</span> center<span class="token punctuation">;</span>
+    color<span class="token operator">:</span> #<span class="token number">999</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span>pullup<span class="token operator">-</span>wrapper<span class="token punctuation">{</span>
+    text<span class="token operator">-</span>align <span class="token operator">:</span>center<span class="token punctuation">;</span>
+    padding <span class="token operator">:</span> <span class="token number">5</span><span class="token operator">%</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 轮播图</span>
+  <span class="token punctuation">.</span>slider<span class="token operator">-</span>group<span class="token punctuation">{</span>
+    position<span class="token operator">:</span> relative<span class="token punctuation">;</span>
+    overflow<span class="token operator">:</span> hidden<span class="token punctuation">;</span>
+    white<span class="token operator">-</span>space<span class="token operator">:</span> nowrap<span class="token punctuation">;</span>
+    <span class="token punctuation">.</span>slider<span class="token operator">-</span>item<span class="token punctuation">{</span>
+      float<span class="token operator">:</span> left<span class="token punctuation">;</span>
+      box<span class="token operator">-</span>sizing<span class="token operator">:</span> border<span class="token operator">-</span>box<span class="token punctuation">;</span>
+      overflow<span class="token operator">:</span> hidden<span class="token punctuation">;</span>
+      text<span class="token operator">-</span>align<span class="token operator">:</span> center<span class="token punctuation">;</span>
+      a<span class="token punctuation">{</span>
+        display<span class="token operator">:</span> block<span class="token punctuation">;</span>
+        width<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+        overflow<span class="token operator">:</span> hidden<span class="token punctuation">;</span>
+        text<span class="token operator">-</span>decoration<span class="token operator">:</span> none<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      img<span class="token punctuation">{</span>
+        display<span class="token operator">:</span> block<span class="token punctuation">;</span>
+        width<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span>dots<span class="token punctuation">{</span>
+    position<span class="token operator">:</span> absolute<span class="token punctuation">;</span>
+    right<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    left<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    bottom<span class="token operator">:</span> <span class="token number">12</span>px<span class="token punctuation">;</span>
+    <span class="token comment">/*主要解决 dots 在某些浏览器下不能显示的问题*/</span>
+    transform<span class="token operator">:</span> <span class="token function">translateZ</span><span class="token punctuation">(</span><span class="token number">1</span>px<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    text<span class="token operator">-</span>align<span class="token operator">:</span> center<span class="token punctuation">;</span>
+    font<span class="token operator">-</span>size<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span>dot<span class="token punctuation">{</span>
+      display<span class="token operator">:</span> inline<span class="token operator">-</span>block<span class="token punctuation">;</span>
+      margin<span class="token operator">:</span> <span class="token number">0</span> <span class="token number">4</span>px<span class="token punctuation">;</span>
+      width<span class="token operator">:</span> <span class="token number">8</span>px<span class="token punctuation">;</span>
+      height<span class="token operator">:</span> <span class="token number">8</span>px<span class="token punctuation">;</span>
+      border<span class="token operator">-</span>radius<span class="token operator">:</span> <span class="token number">50</span><span class="token operator">%</span><span class="token punctuation">;</span>
+      background<span class="token operator">:</span> #fff<span class="token punctuation">;</span>
+      <span class="token operator">&amp;</span><span class="token punctuation">.</span>active<span class="token punctuation">{</span>
+        width<span class="token operator">:</span> <span class="token number">20</span>px<span class="token punctuation">;</span>
+        border<span class="token operator">-</span>radius<span class="token operator">:</span> <span class="token number">5</span>px<span class="token punctuation">;</span>
+        background<span class="token operator">:</span> #<span class="token number">000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">&gt;</span>
+</code></pre></div><h3 id="script"><a href="#script" class="header-anchor">#</a> Script</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;text/ecmascript-6&quot;</span><span class="token operator">&gt;</span>
+  <span class="token comment">// 引入第三方插件</span>
+  <span class="token keyword">import</span> BScroll <span class="token keyword">from</span> <span class="token string">'better-scroll'</span>
+  <span class="token comment">// 刷新效果停留时间</span>
+  <span class="token keyword">const</span> <span class="token constant">TIME_BOUNCE</span> <span class="token operator">=</span> <span class="token number">800</span>
+  <span class="token keyword">const</span> <span class="token constant">TIME_STOP</span> <span class="token operator">=</span> <span class="token number">600</span>
+  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        isPullUpLoad<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        beforePullDown<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        isPullingDown<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        dots<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        currentPageIndex<span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    props<span class="token operator">:</span> <span class="token punctuation">{</span>
+      slider <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 轮播图</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 循环</span>
+      loop<span class="token operator">:</span> <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 自动播放</span>
+      autoPlay<span class="token operator">:</span> <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 间歇时间</span>
+      interval<span class="token operator">:</span> <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> Number<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token number">4000</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      hasMore <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否还有数据</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      data<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 数据</span>
+        type<span class="token operator">:</span> Array<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token keyword">null</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 属性设置</span>
+      startX <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 横轴方向内容区初始化位置,动态加载数据（数据延迟会造成回弹,导致设置失效）</span>
+        type <span class="token operator">:</span> Number<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      startY <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 纵轴方向内容区初始化位置,动态加载数据（数据延迟会造成回弹,导致设置失效）</span>
+        type <span class="token operator">:</span> Number<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      scrollX <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 开启横轴滚动,若设置了eventPassthrough,该配置无效</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      scrollY <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 开启纵轴滚动,若设置了eventPassthrough,该配置无效</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      freeScroll <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 开启双向滚动,若设置了eventPassthrough,该配置无效</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      eventPassthrough <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 开启双向滚动,某个方向模拟滚动的时候，希望在另一个方向保留原生的滚动</span>
+        type <span class="token operator">:</span> String<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token string">''</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      click <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 默认会阻止浏览器的原生click事件。(a标签)</span>
+        <span class="token comment">// 当设置为 true，better-scroll 会派发一个 click 事件</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      dblclick <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// v1.12.0+支持该属性</span>
+        <span class="token comment">// 派发双击点击事件。</span>
+        <span class="token comment">// 当配置成 true 的时候，默认2次点击的延时为 300 ms，</span>
+        <span class="token comment">// 如果配置成对象可以修改 delay</span>
+        <span class="token comment">// {delay: 300}</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> Object<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      tap <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 因为 better-scroll 会阻止原生的 click 事件，我们可以设置 tap 为 true，</span>
+        <span class="token comment">// 它会在某个dom区域被点击的时候派发一个 tap 事件（自定义点击事件）</span>
+        <span class="token comment">// element.addEventListener('tap', doSomething, false);</span>
+        <span class="token comment">// 如果 tap 设置为字符串, 那么这个字符串就作为自定义事件名称。</span>
+        <span class="token comment">// 如 tap: 'myCustomTapEvent'。</span>
+        <span class="token comment">// element.addEventListener('myCustomTapEvent', doSomething, false)</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> String<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      bounce <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 当滚动超过边缘的时候会有一小段回弹动画。设置为 true 则开启动画。</span>
+        <span class="token comment">// {top: true, bottom: true, left: true, right: true}</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> String<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      momentum <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 快速滑动一段距离的时候，会根据滑动的距离和时间计算出动量，</span>
+        <span class="token comment">// 并生成滚动动画。设置为 true 则开启动画。</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> String<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      probeType <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；</span>
+        <span class="token comment">// 当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；</span>
+        <span class="token comment">// 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。</span>
+        <span class="token comment">// 如果没有设置该值，其默认值为 0，即不派发 scroll 事件。</span>
+        type <span class="token operator">:</span> Number<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token number">1</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// preventDefaultException: {</span>
+      <span class="token comment">//   // better-scroll的实现会阻止原生的滚动，这样也同时阻止了一些原生组件的默认行为</span>
+      <span class="token comment">//   // 默认值表示input、textarea、button、select 这些元素的默认行为都不会被阻止。</span>
+      <span class="token comment">//   // key 是 DOM 元素的属性值，value 可以是一个正则表达式</span>
+      <span class="token comment">//   // 还可以设置className 例：{className:/(^|\s)test(\s|$)/}</span>
+      <span class="token comment">//   type : Object,</span>
+      <span class="token comment">//   default : { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/}</span>
+      <span class="token comment">// },</span>
+      observeDOM<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// (v1.5.3+)支持该属性</span>
+        <span class="token comment">// 是否开启自动调用 refresh 方法重新计算来保证滚动的正确性</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      stopPropagation<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// (v1.9.0+)支持该属性</span>
+        <span class="token comment">// 是否阻止事件冒泡。多用在嵌套 scroll 的场景。</span>
+        type <span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      scrollbar <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否开启滚动条</span>
+        <span class="token comment">// {fade: true,interactive: false // 1.8.0 新增}</span>
+        <span class="token comment">// fade 为 true 表示当滚动停止的时候滚动条是否需要渐隐</span>
+        <span class="token comment">// interactive 表示滚动条是否可以交互</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> Object<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      pullDownRefresh<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否开启下拉刷新</span>
+        <span class="token comment">// {threshold: 50,stop: 20}</span>
+        <span class="token comment">// 可以配置顶部下拉的距离（threshold） 来决定刷新时机以及回弹停留的距离（stop）。</span>
+        <span class="token comment">// 当下拉刷新数据加载完毕后，需要执行 finishPullDown 方法</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> Object<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      pullUpLoad<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否开启上拉加载功能</span>
+        <span class="token comment">// {threshold: 50}</span>
+        <span class="token comment">// 可以配置离（threshold）来决定开始加载的时机。</span>
+        <span class="token comment">// 当上拉加载数据加载完毕后，需要执行 finishPullUp 方法。</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> Object<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      mouseWheel<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// (v1.8.0+)支持该属性</span>
+        <span class="token comment">// 用于 PC 端的鼠标滚轮，默认为 false。</span>
+        <span class="token comment">// 当设置为 true 或者是一个 Object 的时候，可以开启鼠标滚轮</span>
+        <span class="token comment">// {speed: 20,invert: false,easeTime: 300}</span>
+        <span class="token comment">// speed 表示鼠标滚轮滚动的速度</span>
+        <span class="token comment">// invert 为 true 表示滚轮滚动和时机滚动方向相反</span>
+        <span class="token comment">// easeTime 表示滚动动画的缓动时长</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> Object<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      zoom<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// (v1.11.0+)支持该属性</span>
+        <span class="token comment">// 这个配置用于对滚动内容的缩放，默认为 false。</span>
+        <span class="token comment">// 当设置为 true 或者是一个 Object 的时候，可以开启缩放</span>
+        <span class="token comment">// {start: 1,min: 1,max: 4}</span>
+        <span class="token comment">// start 表示开始的缩放比例</span>
+        <span class="token comment">// min 表示最小缩放比例</span>
+        <span class="token comment">// max 表示最大缩放比例。</span>
+        type <span class="token operator">:</span> Boolean <span class="token operator">|</span> Object<span class="token punctuation">,</span>
+        <span class="token keyword">default</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 是否开启一些事件的监听</span>
+      isScroll<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听滚动事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      beforeScroll<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听滚动开始之前事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      startScroll<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听滚动开始事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      endScroll<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听滚动结束事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      touchEnd<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听鼠标手指离开</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      flickScroll<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听轻拂事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      refreshFinish<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听刷新完成事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      refreshDelay<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 刷新延迟时间</span>
+        type<span class="token operator">:</span> Number<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token number">20</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      destoryScroll<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听destory方法调用完成事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      zoomStart<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听缩放开始事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      zoomEnd<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否监听缩放结束事件</span>
+        type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">mounted</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 延迟20ms保证dom正确挂载后，betterScroll可以正确初始化</span>
+      <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token comment">// 设置容器的宽度</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_setSliderWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initDots</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>autoPlay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_play</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initScroll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'resize'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>scroll <span class="token operator">||</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span>enabled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span>
+          <span class="token punctuation">}</span>
+          <span class="token function">clearTimeout</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>resizeTimer<span class="token punctuation">)</span>
+          <span class="token comment">// Timeout 60 是为了做 防抖，</span>
+          <span class="token comment">// 因为 resize 事件通常会触发多次，我们在最后一次 resize 事件结束后，</span>
+          <span class="token comment">// 延时 60ms 执行函数内部逻辑。</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>resizeTimer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token comment">// isInTransition BetterScroll 内置的属性</span>
+            <span class="token comment">// 用来判断 sxroll是否是处于滚动动画的过程中，开启了cs3 过度动画效果时需要判断</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span>isInTransition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_onScrollEnd</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>autoPlay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_play</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token comment">// betterScroll初始化</span>
+      <span class="token function">_initScroll</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 判断是否可以找到组件</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>$refs<span class="token punctuation">.</span>wrapper<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scroll <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BScroll</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$refs<span class="token punctuation">.</span>wrapper<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+          startX <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>startX<span class="token punctuation">,</span>
+          startY <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>startY<span class="token punctuation">,</span>
+          scrollX <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token operator">?</span><span class="token boolean">true</span><span class="token operator">:</span><span class="token keyword">this</span><span class="token punctuation">.</span>scrollX<span class="token punctuation">,</span>
+          scrollY <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token operator">?</span><span class="token boolean">false</span><span class="token operator">:</span><span class="token keyword">this</span><span class="token punctuation">.</span>scrollY<span class="token punctuation">,</span>
+          freeScroll <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>freeScroll<span class="token punctuation">,</span>
+          eventPassthrough <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>eventPassthrough<span class="token punctuation">,</span>
+          click <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token operator">?</span><span class="token boolean">true</span><span class="token operator">:</span><span class="token keyword">this</span><span class="token punctuation">.</span>click<span class="token punctuation">,</span>
+          dblclick <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dblclick<span class="token punctuation">,</span>
+          tap <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>tap<span class="token punctuation">,</span>
+          bounce <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>bounce<span class="token punctuation">,</span>
+          momentum <span class="token operator">:</span><span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token operator">?</span><span class="token boolean">false</span><span class="token operator">:</span><span class="token keyword">this</span><span class="token punctuation">.</span>momentum<span class="token punctuation">,</span>
+          probeType <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>probeType<span class="token punctuation">,</span>
+          <span class="token comment">// preventDefaultException : this.preventDefaultException,</span>
+          observeDOM <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observeDOM<span class="token punctuation">,</span>
+          stopPropagation <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>stopPropagation<span class="token punctuation">,</span>
+          scrollbar <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scrollbar<span class="token punctuation">,</span>
+          pullDownRefresh <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pullDownRefresh<span class="token punctuation">,</span>
+          pullUpLoad <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pullUpLoad<span class="token punctuation">,</span>
+          mouseWheel <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mouseWheel<span class="token punctuation">,</span>
+          zoom <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>zoom<span class="token punctuation">,</span>
+          snap<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token operator">?</span><span class="token punctuation">{</span>loop<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loop<span class="token punctuation">,</span>threshold<span class="token operator">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>speed<span class="token operator">:</span> <span class="token number">400</span><span class="token punctuation">}</span><span class="token operator">:</span><span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment">// 设置监听事件</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>isScroll<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 参数：{Object} {x, y} 滚动的实时坐标</span>
+          <span class="token comment">// 触发时机：滚动过程中，具体时机取决于选项中的 probeType</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'scroll'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">pos</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>pos<span class="token punctuation">.</span>y<span class="token punctuation">,</span>pos<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'scroll'</span><span class="token punctuation">,</span> pos<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>beforeScroll <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 参数：无</span>
+          <span class="token comment">// 触发时机：滚动开始之前</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'beforeScrollStart'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>beforeScroll<span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'beforeScroll'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment">// 手指停留在轮播图时间超过设置的intetval(一直没有touchend)，</span>
+            <span class="token comment">// 还是会触发自动播放</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>autoPlay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">clearTimeout</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>timer<span class="token punctuation">)</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>startScroll<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 参数：无</span>
+          <span class="token comment">// 触发时机：滚动开始时</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'scrollStart'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'startScroll'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>endScroll <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 参数：{Object} {x, y} 滚动结束的位置坐标</span>
+          <span class="token comment">// 触发时机：滚动结束</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'scrollEnd'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">pos</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>pos<span class="token punctuation">.</span>y<span class="token punctuation">,</span>pos<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>endScroll<span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'endScroll'</span><span class="token punctuation">,</span> pos<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_onScrollEnd</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>touchEnd <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 参数：{Object} {x, y} 位置坐标</span>
+          <span class="token comment">// 触发时机：鼠标/手指离开</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'touchEnd'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">pos</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>pos<span class="token punctuation">.</span>y<span class="token punctuation">,</span>pos<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>touchEnd<span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'touchEnd'</span><span class="token punctuation">,</span> pos<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>autoPlay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_play</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>flickScroll<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 参数：无</span>
+          <span class="token comment">// 触发时机：轻拂时</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'flick'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'flickScroll'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>refreshFinish<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'refresh'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'refreshFinish'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>destoryScroll<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'destoryScroll'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>pullDownRefresh<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'pullingDown'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">pullingDownHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>pullUpLoad<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'pullingUp'</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">pullingUpHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>zoomStart<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'zoomStart'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'zoomStart'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>zoomEnd<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'zoomEnd'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'zoomEnd'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 下拉刷新</span>
+      <span class="token function">pullingDownHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>beforePullDown <span class="token operator">=</span> <span class="token boolean">false</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isPullingDown <span class="token operator">=</span> <span class="token boolean">true</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'pullingDown'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 上拉加载</span>
+      <span class="token function">pullingUpHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isPullUpLoad <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'pullingUp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 下拉刷新完成事件</span>
+      <span class="token keyword">async</span> <span class="token function">finishPullDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token parameter">resolve</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">finishPullDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token constant">TIME_STOP</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>beforePullDown <span class="token operator">=</span> <span class="token boolean">true</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token constant">TIME_BOUNCE</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 状态更新</span>
+      <span class="token function">stateUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">// 正在刷新</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>isPullingDown<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>isPullingDown <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">finishPullDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 正在加载数据</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>isPullUpLoad<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">finishPullUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>isPullUpLoad <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 普通数据变化更新</span>
+        <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>refreshDelay<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 基础方法</span>
+      <span class="token function">disable</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 禁用betterScroll</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scroll <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">disable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">enable</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 启用betterScroll</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scroll <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">enable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">refresh</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 刷新betterScroll</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>slider<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_setSliderWidth</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">scrollTo</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 滚动到指定的位置（x,y,time,easing）</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scroll <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">scrollTo</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">,</span> arguments<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">scrollToElement</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 滚动到指定的目标元素</span>
+        <span class="token comment">// el 滚动到的目标元素, 如果是字符串，则内部会尝试调用 querySelector 转换成 DOM 对象。</span>
+        <span class="token comment">// time 滚动动画执行的时长（单位 ms）</span>
+        <span class="token comment">// {Number | Boolean} offsetX 相对于目标元素的横轴偏移量，</span>
+            <span class="token comment">// 如果设置为 true，则滚到目标元素的中心位置</span>
+        <span class="token comment">// {Number | Boolean} offsetY 相对于目标元素的纵轴偏移量，</span>
+            <span class="token comment">// 如果设置为 true，则滚到目标元素的中心位置</span>
+        <span class="token comment">// {Object} easing 缓动函数，一般不建议修改，如果想修改，参考源码中的 ease.js 里的写法</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>scroll <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">scrollToElement</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">,</span> arguments<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 添加class</span>
+      <span class="token function">addClass</span> <span class="token punctuation">(</span><span class="token parameter">el<span class="token punctuation">,</span> className</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        el<span class="token punctuation">.</span>classList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>className<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 轮播图设置宽度</span>
+      <span class="token function">_setSliderWidth</span> <span class="token punctuation">(</span><span class="token parameter">isResize</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>children <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$refs<span class="token punctuation">.</span>sliderGroup<span class="token punctuation">.</span>children
+
+        <span class="token keyword">let</span> width <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">let</span> sliderWidth <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$refs<span class="token punctuation">.</span>wrapper<span class="token punctuation">.</span>clientWidth
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">let</span> child <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">addClass</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> <span class="token string">'slider-item'</span><span class="token punctuation">)</span>
+
+          child<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> sliderWidth <span class="token operator">+</span> <span class="token string">'px'</span>
+          width <span class="token operator">+=</span> sliderWidth
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 循环添加头尾</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>loop <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>isResize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          width <span class="token operator">+=</span> <span class="token number">2</span> <span class="token operator">*</span> sliderWidth
+        <span class="token punctuation">}</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>$refs<span class="token punctuation">.</span>sliderGroup<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> width <span class="token operator">+</span> <span class="token string">'px'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">_onScrollEnd</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 获取当前页面信息</span>
+        <span class="token keyword">let</span> pageIndex <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">getCurrentPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>pageX
+        <span class="token keyword">this</span><span class="token punctuation">.</span>currentPageIndex <span class="token operator">=</span> pageIndex
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>autoPlay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 在每次滚动结束时触发</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_play</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">_initDots</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>dots <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token comment">// 滚动到下一张</span>
+      <span class="token function">_play</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 清除计数器，让动画重新计时</span>
+        <span class="token comment">// 防止手动触发滚动会出现连续滚动两次的情况</span>
+        <span class="token function">clearTimeout</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>timer<span class="token punctuation">)</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>scroll<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>interval<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    watch<span class="token operator">:</span> <span class="token punctuation">{</span>
+      data<span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token comment">// 下拉刷新的动作可能无法监听到数据的变化</span>
+        <span class="token comment">// 需要在父组件强制执行stateUpdate方法来完成效果</span>
+        <span class="token function">handler</span><span class="token punctuation">(</span><span class="token parameter">newName<span class="token punctuation">,</span> oldName</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">stateUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        deep<span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token comment">// 代表在wacth里声明了data这个方法之后立即先去执行handler方法</span>
+        <span class="token comment">// immediate: true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+</code></pre></div><h2 id="引用示例-quote-example"><a href="#引用示例-quote-example" class="header-anchor">#</a> 引用示例(quote example)</h2> <h3 id="简单滚动"><a href="#简单滚动" class="header-anchor">#</a> 简单滚动</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 插件默认开放垂直滚动（默认带回弹动画效果）</span>
+<span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;scrollContainer&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>scroll<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>ul <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;list&quot;</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>li <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;item&quot;</span> v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">&quot;(item, index) in list&quot;</span><span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token punctuation">{</span>item<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>scroll<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+<span class="token keyword">import</span> Scroll <span class="token keyword">from</span> <span class="token string">'@/components/scroll/scroll1'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span><span class="token string">'bSTest'</span><span class="token punctuation">,</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      list<span class="token operator">:</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">46</span><span class="token punctuation">,</span><span class="token number">57</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">8879</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">9324</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">345</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">879</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">324</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">46</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span><span class="token punctuation">{</span>Scroll<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>style lang<span class="token operator">=</span><span class="token string">&quot;scss&quot;</span> scoped<span class="token operator">&gt;</span>
+  <span class="token punctuation">.</span>scrollContainer<span class="token punctuation">{</span>
+    height<span class="token operator">:</span> <span class="token number">500</span>px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">&gt;</span>
+</code></pre></div><h3 id="上拉加载-下拉树新"><a href="#上拉加载-下拉树新" class="header-anchor">#</a> 上拉加载-下拉树新</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;scrollContainer&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>scroll ref<span class="token operator">=</span><span class="token string">&quot;scroll&quot;</span> 
+      <span class="token operator">:</span>data<span class="token operator">=</span><span class="token string">&quot;list&quot;</span> 
+      <span class="token operator">:</span>pullDownRefresh<span class="token operator">=</span><span class="token string">&quot;true&quot;</span> 
+      @pullingDown<span class="token operator">=</span><span class="token string">&quot;pullingDown&quot;</span> 
+      <span class="token operator">:</span>pullUpLoad<span class="token operator">=</span><span class="token string">&quot;true&quot;</span> 
+      @pullingUp<span class="token operator">=</span><span class="token string">&quot;pullingUp&quot;</span>
+    <span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>ul<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>li <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;item&quot;</span> v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">&quot;(item, index) in list&quot;</span><span class="token operator">&gt;</span>
+          <span class="token punctuation">{</span><span class="token punctuation">{</span>item<span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>scroll<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+  <span class="token keyword">import</span> Scroll <span class="token keyword">from</span> <span class="token string">'@/components/scroll/scroll1'</span>
+  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    name<span class="token operator">:</span><span class="token string">'bSTest'</span><span class="token punctuation">,</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        list<span class="token operator">:</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">46</span><span class="token punctuation">,</span><span class="token number">57</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">8879</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">9324</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token comment">//组件会监听list的修改刷新scroll插件</span>
+      <span class="token function">pullingDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">46</span><span class="token punctuation">,</span><span class="token number">57</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">8879</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">9324</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">345</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">879</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">pullingUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">46</span><span class="token punctuation">,</span><span class="token number">57</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">8879</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">9324</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">345</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    components<span class="token operator">:</span><span class="token punctuation">{</span>Scroll<span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>style lang<span class="token operator">=</span><span class="token string">&quot;scss&quot;</span> scoped<span class="token operator">&gt;</span>
+  <span class="token punctuation">.</span>scrollContainer<span class="token punctuation">{</span>
+    height<span class="token operator">:</span> <span class="token number">500</span>px
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">&gt;</span>
+</code></pre></div><h3 id="轮播图-swiper"><a href="#轮播图-swiper" class="header-anchor">#</a> 轮播图(swiper)</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 插件默认开放垂直滚动（默认带回弹动画效果）</span>
+<span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;scrollContainer&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">&quot;recommends.length&quot;</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">&quot;slider-wrapper&quot;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>scroll ref<span class="token operator">=</span><span class="token string">&quot;scroll&quot;</span> <span class="token operator">:</span>slider<span class="token operator">=</span><span class="token string">&quot;true&quot;</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>div v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">&quot;(item,index) in recommends&quot;</span> <span class="token operator">:</span>key<span class="token operator">=</span><span class="token string">&quot;index&quot;</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>a <span class="token operator">:</span>href<span class="token operator">=</span><span class="token string">&quot;item.linkUrl&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span>img <span class="token operator">:</span>src<span class="token operator">=</span><span class="token string">&quot;item.picUrl&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>    
+      <span class="token operator">&lt;</span><span class="token operator">/</span>scroll<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+<span class="token keyword">import</span> Scroll <span class="token keyword">from</span> <span class="token string">'@/components/scroll/scroll1'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span><span class="token string">'bSTest'</span><span class="token punctuation">,</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      recommends<span class="token operator">:</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>recommends <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        linkUrl<span class="token operator">:</span><span class="token string">'https://www.baidu.com'</span><span class="token punctuation">,</span>
+        picUrl<span class="token operator">:</span><span class="token string">'xxx.png'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        linkUrl<span class="token operator">:</span><span class="token string">'https://www.baidu.com'</span><span class="token punctuation">,</span>
+        picUrl<span class="token operator">:</span><span class="token string">'xxx.png'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        linkUrl<span class="token operator">:</span><span class="token string">'https://www.baidu.com'</span><span class="token punctuation">,</span>
+        picUrl<span class="token operator">:</span><span class="token string">'xxx.png'</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span><span class="token punctuation">{</span>Scroll<span class="token punctuation">,</span>Test<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>style lang<span class="token operator">=</span><span class="token string">&quot;scss&quot;</span> scoped<span class="token operator">&gt;</span>
+ <span class="token punctuation">.</span>scrollContainer<span class="token punctuation">{</span>
+    height<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+    width<span class="token operator">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span>slider<span class="token operator">-</span>wrapper<span class="token punctuation">{</span>
+    width<span class="token operator">:</span> <span class="token number">80</span><span class="token operator">%</span><span class="token punctuation">;</span>
+    margin<span class="token operator">:</span> <span class="token number">0</span> auto<span class="token punctuation">;</span>
+    min<span class="token operator">-</span>height<span class="token operator">:</span> <span class="token number">20</span><span class="token operator">%</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">&gt;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/Wendy_dn/wheel_docs/axios.html" class="prev">
+        axios(异步请求封装)
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/Wendy_dn/assets/js/app.a3c0083f.js" defer></script><script src="/Wendy_dn/assets/js/2.ed2d8ee7.js" defer></script><script src="/Wendy_dn/assets/js/12.95385a13.js" defer></script>
+  </body>
+</html>
